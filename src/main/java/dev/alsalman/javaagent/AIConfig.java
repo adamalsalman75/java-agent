@@ -13,30 +13,12 @@ import org.springframework.context.annotation.Primary;
 public class AIConfig {
 
     @Bean
-    @Primary
-    @ConfigurationProperties("spring.ai.openai.chat")
-    public OpenAiChatOptions writerChatOptions() {
-        return new OpenAiChatOptions();
-    }
-
-    @Bean
-    @ConfigurationProperties("spring.ai.openai.chat-review")
-    public OpenAiChatOptions reviewerChatOptions() {
-        return new OpenAiChatOptions();
-    }
-
-    @Bean
     public JobStore jobStore() {
         return new JobStore();
     }
 
     @Bean
-    public ChatClient writerChatClient(ChatClient.Builder builder, @Qualifier("writerChatOptions") OpenAiChatOptions options) {
-        return builder.defaultOptions(options).build();
-    }
-
-    @Bean
-    public ChatClient reviewerChatClient(ChatClient.Builder builder, @Qualifier("reviewerChatOptions") OpenAiChatOptions options) {
-        return builder.defaultOptions(options).build();
+    public ChatClient chatClient(ChatClient.Builder builder) {
+        return builder.build();
     }
 }

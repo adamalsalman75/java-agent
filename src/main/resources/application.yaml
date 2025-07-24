@@ -11,9 +11,3 @@ spring:
   ai:
     openai:
       api-key: ${OPENAI_API_KEY}
-      chat:
-        options:
-          temperature: 0.9
-      chat-review:
-        options:
-          temperature: 0.2

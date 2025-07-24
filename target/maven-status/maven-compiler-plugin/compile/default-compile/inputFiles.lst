@@ -1,0 +1,11 @@
+/Users/adam/projects/java-agent/src/main/java/dev/alsalman/javaagent/AIConfig.java
+/Users/adam/projects/java-agent/src/main/java/dev/alsalman/javaagent/AgentController.java
+/Users/adam/projects/java-agent/src/main/java/dev/alsalman/javaagent/JavaAgentApplication.java
+/Users/adam/projects/java-agent/src/main/java/dev/alsalman/javaagent/JobStore.java
+/Users/adam/projects/java-agent/src/main/java/dev/alsalman/javaagent/Orchestrator.java
+/Users/adam/projects/java-agent/src/main/java/dev/alsalman/javaagent/Request.java
+/Users/adam/projects/java-agent/src/main/java/dev/alsalman/javaagent/Response.java
+/Users/adam/projects/java-agent/src/main/java/dev/alsalman/javaagent/agents/MarketTrendsAgent.java
+/Users/adam/projects/java-agent/src/main/java/dev/alsalman/javaagent/agents/ReviewAgent.java
+/Users/adam/projects/java-agent/src/main/java/dev/alsalman/javaagent/agents/StoryWriterAgent.java
+/Users/adam/projects/java-agent/src/main/java/dev/alsalman/javaagent/agents/TargetAudienceAgent.java

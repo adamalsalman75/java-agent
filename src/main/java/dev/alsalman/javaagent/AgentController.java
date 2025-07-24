@@ -7,20 +7,20 @@ import java.util.Map;
 @RestController
 public class AgentController {
 
-    private final AgentService agentService;
+    private final Orchestrator orchestrator;
 
-    public AgentController(AgentService agentService) {
-        this.agentService = agentService;
+    public AgentController(Orchestrator orchestrator) {
+        this.orchestrator = orchestrator;
     }
 
     @PostMapping("/story")
     public Map<String, String> submitStoryRequest(@RequestBody Request request) {
-        String jobId = agentService.submitStoryRequest(request);
+        String jobId = orchestrator.submitStoryRequest(request);
         return Map.of("jobId", jobId);
     }
 
     @GetMapping("/story/{jobId}")
     public JobStore.Job getStoryResult(@PathVariable String jobId) {
-        return agentService.getStoryResult(jobId);
+        return orchestrator.getStoryResult(jobId);
     }
 }
