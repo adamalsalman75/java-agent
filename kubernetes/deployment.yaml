@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: java-agent
+  labels:
+    app: java-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: java-agent
+  template:
+    metadata:
+      labels:
+        app: java-agent
+    spec:
+      containers:
+      - name: java-agent
+        image: gcr.io/adam-466814/java-agent:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: openai-api-key
+              key: key
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: java-agent
+spec:
+  selector:
+    app: java-agent
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+  type: LoadBalancer
