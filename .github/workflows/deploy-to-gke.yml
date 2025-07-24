@@ -29,6 +29,9 @@ jobs:
     - name: Push Docker image
       run: docker push gcr.io/adam-466814/java-agent:latest
 
+    - name: Install gke-gcloud-auth-plugin
+      run: gcloud components install gke-gcloud-auth-plugin
+
     - name: Deploy to GKE
       run: |
         gcloud container clusters get-credentials java-agent-cluster --zone us-central1 --project adam-466814
