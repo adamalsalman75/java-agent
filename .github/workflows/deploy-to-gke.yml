@@ -37,6 +37,7 @@ jobs:
 
     - name: Deploy to GKE
       run: |
+        gcloud container clusters describe java-agent-cluster --zone us-central1 --project adam-466814 || gcloud container clusters create-auto java-agent-cluster --region us-central1 --project adam-466814
         gcloud container clusters get-credentials java-agent-cluster --zone us-central1 --project adam-466814
         kubectl delete deployment java-agent --ignore-not-found=true
         sed -i "s|gcr.io/adam-466814/java-agent:latest|gcr.io/adam-466814/java-agent:$(git rev-parse --short HEAD)|" kubernetes/deployment.yaml
