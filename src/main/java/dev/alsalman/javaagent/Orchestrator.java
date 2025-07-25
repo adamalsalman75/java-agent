@@ -1,9 +1,6 @@
 package dev.alsalman.javaagent;
 
-import dev.alsalman.javaagent.agents.MarketTrendsAgent;
-import dev.alsalman.javaagent.agents.ReviewAgent;
-import dev.alsalman.javaagent.agents.StoryWriterAgent;
-import dev.alsalman.javaagent.agents.TargetAudienceAgent;
+import dev.alsalman.javaagent.agents.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -56,17 +53,18 @@ public class Orchestrator {
                 logger.info("Writing story for topic: {}", request.topic());
                 String story = storyWriterAgent.writeStory(request.topic(), audience, trends);
                 logger.info("Reviewing story for topic: {}", request.topic());
-                String review = reviewAgent.reviewStory(story);
+                Review review = reviewAgent.reviewStory(story);
+                logger.info("Review: {}", review);
 
                 List<String> reviews = new ArrayList<>();
-                reviews.add(review);
+                reviews.add(review.feedback());
 
                 int iteration = 1;
-                while (!review.contains("happy")) {
+                while (!review.happy()) {
                     logger.info("Reviewer not happy. Iteration: {}. Rewriting story for topic: {}", iteration, request.topic());
-                    story = storyWriterAgent.writeStory(request.topic(), audience, trends);
+                    story = storyWriterAgent.rewriteStory(story, review.feedback());
                     review = reviewAgent.reviewStory(story);
-                    reviews.add(review);
+                    reviews.add(review.feedback());
                     iteration++;
                 }
 

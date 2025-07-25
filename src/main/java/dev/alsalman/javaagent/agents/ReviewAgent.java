@@ -1,6 +1,7 @@
 package dev.alsalman.javaagent.agents;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -8,13 +9,18 @@ public class ReviewAgent {
 
     private final ChatClient chatClient;
 
-    public ReviewAgent(ChatClient chatClient) {
-        this.chatClient = chatClient;
+    public ReviewAgent(ChatClient.Builder builder) {
+        this.chatClient = builder
+                .defaultSystem("Respond with a JSON object containing two fields: 'happy' (a boolean indicating if you are happy with the story) and 'feedback' (a string containing your review)")
+                .defaultOptions(ChatOptions.builder()
+                        .temperature(0.2)
+                        .build())
+                .build();
     }
 
-    public String reviewStory(String story) {
+    public Review reviewStory(String story) {
         return chatClient.prompt()
-                .user("Review the following story and provide feedback. If the story is good, please include the word \"happy\" in your response: " + story)
-                .call().content();
+                .user("Review the following story and provide feedback: " + story)
+                .call().entity(Review.class);
     }
 }
