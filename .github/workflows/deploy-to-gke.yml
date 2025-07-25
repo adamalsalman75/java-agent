@@ -39,8 +39,8 @@ jobs:
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       run: |
-        gcloud container clusters describe java-agent-cluster --zone us-central1 --project adam-466814 || gcloud container clusters create-auto java-agent-cluster --region us-central1 --project adam-466814
-        gcloud container clusters get-credentials java-agent-cluster --zone us-central1 --project adam-466814
+        gcloud container clusters describe java-agent-cluster --zone us-west1 --project adam-466814 || gcloud container clusters create-auto java-agent-cluster --region us-west1 --project adam-466814
+        gcloud container clusters get-credentials java-agent-cluster --zone us-west1 --project adam-466814
         if ! kubectl get secret openai-api-key > /dev/null 2>&1; then
           echo "Secret not found, creating it..."
           kubectl create secret generic openai-api-key --from-literal=api-key="$OPENAI_API_KEY"
